@@ -1,0 +1,17 @@
+name: RustDesk manual build (official CI)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  build:
+    uses: ./.github/workflows/flutter-build.yml
+    with:
+      upload-artifact: true
+      upload-tag: manual-${{ github.run_number }}
+      publish-update-metadata: false
+    secrets: inherit
