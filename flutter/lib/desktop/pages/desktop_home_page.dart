@@ -89,7 +89,7 @@ class _DesktopHomePageState extends State<DesktopHomePage>
         alignment: Alignment.center,
         child: loadLogo(),
       ),
-      //buildTip(context),
+      buildTip(context),
       if (!isOutgoingOnly) buildIDBoard(context),
       //if (!isOutgoingOnly) buildPasswordBoard(context),
       FutureBuilder<Widget>(
@@ -225,25 +225,31 @@ class _DesktopHomePageState extends State<DesktopHomePage>
                     ),
                   ),
                   Flexible(
+                    child: MouseRegion(
+                    cursor: SystemMouseCursors.click,
                     child: GestureDetector(
-                      onDoubleTap: () {
+                      behavior: HitTestBehavior.opaque,
+                      onTap: () {
                         Clipboard.setData(
                             ClipboardData(text: model.serverId.text));
                         showToast(translate("Copied"));
                       },
+                      child: IgnorePointer(
                       child: TextFormField(
                         controller: model.serverId,
                         readOnly: true,
                         enableInteractiveSelection: false,
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          contentPadding: EdgeInsets.only(top: 10, bottom: 10),
+                          contentPadding: EdgeInsets.only(top: 20, bottom: 10),
                         ),
                         style: TextStyle(
                           fontSize: 42,
                         ),
                       ).workaroundFreezeLinuxMint(),
                     ),
+                    ),
+                  ),
                   )
                 ],
               ),
