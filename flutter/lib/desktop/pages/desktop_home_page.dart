@@ -205,7 +205,7 @@ class _DesktopHomePageState extends State<DesktopHomePage>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    height: 5,
+                    height: 10,
                     // child: Row(
                     //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     //   crossAxisAlignment: CrossAxisAlignment.start,
