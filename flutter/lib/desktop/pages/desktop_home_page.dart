@@ -209,19 +209,19 @@ class _DesktopHomePageState extends State<DesktopHomePage>
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          translate("ID"),
-                          style: TextStyle(
-                              fontSize: 14,
-                              color: Theme.of(context)
-                                  .textTheme
-                                  .titleLarge
-                                  ?.color
-                                  ?.withOpacity(0.5)),
-                        ).marginOnly(top: 5),
-                        //buildPopupMenu(context)
-                      ],
+                      // children: [
+                      //   Text(
+                      //     translate("ID"),
+                      //     style: TextStyle(
+                      //         fontSize: 14,
+                      //         color: Theme.of(context)
+                      //             .textTheme
+                      //             .titleLarge
+                      //             ?.color
+                      //             ?.withOpacity(0.5)),
+                      //   ).marginOnly(top: 5),
+                      //   //buildPopupMenu(context)
+                      // ],
                     ),
                   ),
                   Flexible(
@@ -241,7 +241,7 @@ class _DesktopHomePageState extends State<DesktopHomePage>
                         enableInteractiveSelection: false,
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          contentPadding: EdgeInsets.only(top: 20, bottom: 10),
+                          contentPadding: EdgeInsets.only(top: 10, bottom: 10),
                         ),
                         style: TextStyle(
                           fontSize: 42,
