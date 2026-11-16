@@ -204,26 +204,26 @@ class _DesktopHomePageState extends State<DesktopHomePage>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Container(
-                  //   height: 25,
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //     crossAxisAlignment: CrossAxisAlignment.start,
-                  //     children: [
-                  //       Text(
-                  //         translate("ID"),
-                  //         style: TextStyle(
-                  //             fontSize: 14,
-                  //             color: Theme.of(context)
-                  //                 .textTheme
-                  //                 .titleLarge
-                  //                 ?.color
-                  //                 ?.withOpacity(0.5)),
-                  //       ).marginOnly(top: 5),
-                  //       //buildPopupMenu(context)
-                  //     ],
-                  //   ),
-                  // ),
+                  Container(
+                    height: 5,
+                    // child: Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   crossAxisAlignment: CrossAxisAlignment.start,
+                    //   children: [
+                    //     Text(
+                    //       translate("ID"),
+                    //       style: TextStyle(
+                    //           fontSize: 14,
+                    //           color: Theme.of(context)
+                    //               .textTheme
+                    //               .titleLarge
+                    //               ?.color
+                    //               ?.withOpacity(0.5)),
+                    //     ).marginOnly(top: 5),
+                    //     //buildPopupMenu(context)
+                    //   ],
+                    // ),
+                  ),
                   Flexible(
                     child: MouseRegion(
                     cursor: SystemMouseCursors.click,
