@@ -129,7 +129,7 @@ class _DesktopHomePageState extends State<DesktopHomePage>
     return ChangeNotifierProvider.value(
       value: gFFI.serverModel,
       child: Container(
-        width: isIncomingOnly ? 280.0 : 200.0,
+        width: isIncomingOnly ? 400.0 : 200.0,
         color: Theme.of(context).colorScheme.background,
         child: Stack(
           children: [
@@ -205,7 +205,7 @@ class _DesktopHomePageState extends State<DesktopHomePage>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    height: 10,
+                    height: 5,
                     // child: Row(
                     //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     //   crossAxisAlignment: CrossAxisAlignment.start,
@@ -244,7 +244,7 @@ class _DesktopHomePageState extends State<DesktopHomePage>
                           contentPadding: EdgeInsets.only(top: 10, bottom: 10),
                         ),
                         style: TextStyle(
-                          fontSize: 42,
+                          fontSize: 50,
                         ),
                       ).workaroundFreezeLinuxMint(),
                     ),
