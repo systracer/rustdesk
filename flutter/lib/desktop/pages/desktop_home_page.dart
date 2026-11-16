@@ -89,7 +89,7 @@ class _DesktopHomePageState extends State<DesktopHomePage>
         alignment: Alignment.center,
         child: loadLogo(),
       ),
-      buildTip(context),
+      //buildTip(context),
       if (!isOutgoingOnly) buildIDBoard(context),
       //if (!isOutgoingOnly) buildPasswordBoard(context),
       FutureBuilder<Widget>(
@@ -239,7 +239,7 @@ class _DesktopHomePageState extends State<DesktopHomePage>
                           contentPadding: EdgeInsets.only(top: 10, bottom: 10),
                         ),
                         style: TextStyle(
-                          fontSize: 32,
+                          fontSize: 42,
                         ),
                       ).workaroundFreezeLinuxMint(),
                     ),
