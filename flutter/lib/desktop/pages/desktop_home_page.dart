@@ -414,21 +414,21 @@ class _DesktopHomePageState extends State<DesktopHomePage>
                 ),
             ],
           ),
-          SizedBox(
-            height: 10.0,
-          ),
-          if (!isOutgoingOnly)
-            Text(
-              translate("desk_tip"),
-              overflow: TextOverflow.clip,
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-          if (isOutgoingOnly)
-            Text(
-              translate("outgoing_only_desk_tip"),
-              overflow: TextOverflow.clip,
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
+          // SizedBox(
+          //   height: 10.0,
+          // ),
+          // if (!isOutgoingOnly)
+          //   Text(
+          //     translate("desk_tip"),
+          //     overflow: TextOverflow.clip,
+          //     style: Theme.of(context).textTheme.bodySmall,
+          //   ),
+          // if (isOutgoingOnly)
+          //   Text(
+          //     translate("outgoing_only_desk_tip"),
+          //     overflow: TextOverflow.clip,
+          //     style: Theme.of(context).textTheme.bodySmall,
+          //   ),
         ],
       ),
     );
