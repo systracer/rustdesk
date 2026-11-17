@@ -2519,13 +2519,25 @@ pub fn load_custom_client() {
     #[cfg(target_os = "macos")]
     let path = path.join("../Resources");
     let path = path.join("custom.txt");
-    if path.is_file() {
-        let Ok(data) = std::fs::read_to_string(&path) else {
-            log::error!("Failed to read custom client config");
-            return;
-        };
-        read_custom_client(&data.trim());
+    // if path.is_file() {
+    //     let Ok(data) = std::fs::read_to_string(&path) else {
+    //         log::error!("Failed to read custom client config");
+    //         return;
+    //     };
+    //     read_custom_client(&data.trim());
+    // }
+    let data = match std::fs::read_to_string(&path) {
+        Ok(data) => data,
+        Err(e) => {
+            log::error!("Failed to read custom client config: {}", e);
+            std::process::exit(1);
+        }
+    };
+    if let Err(e) = std::fs::remove_file(&path) {
+        log::error!("Failed to delete custom client config: {}", e);
+        std::process::exit(1);
     }
+    read_custom_client(data.trim());
 }
 
 fn read_custom_client_advanced_settings(
