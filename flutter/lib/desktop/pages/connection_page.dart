@@ -126,7 +126,7 @@ class _OnlineStatusWidgetState extends State<OnlineStatusWidget> {
               ),
             ).marginSymmetric(horizontal: em),
             Container(
-              width: isIncomingOnly ? 226 : null,
+              width: isIncomingOnly ? 326 : null,
               child: _buildConnStatusMsg(),
             ),
             // stop
