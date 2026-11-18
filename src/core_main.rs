@@ -46,8 +46,7 @@ pub fn core_main() -> Option<CoreMainAction> {
     if !crate::common::global_init() {
         return None;
     }
-    #[cfg(not(feature = "flutter"))]
-    crate::load_custom_client();
+    crate::load_custom_client(!cfg!(feature = "flutter"));
     #[cfg(windows)]
     if !crate::platform::windows::bootstrap() {
         // return None to terminate the process
