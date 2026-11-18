@@ -2506,26 +2506,42 @@ pub fn rustdesk_interval(i: Interval) -> ThrottledInterval {
     ThrottledInterval::new(i)
 }
 
-pub fn load_custom_client() {
+pub fn load_custom_client(delete_after_read: bool) {
     #[cfg(debug_assertions)]
-    if let Ok(data) = std::fs::read_to_string("./custom.txt") {
+    if std::path::Path::new("./custom.txt").is_file() {
+        let path = std::path::Path::new("./custom.txt");
+
+        let data = match std::fs::read_to_string(path) {
+            Ok(data) => data,
+            Err(e) => {
+                log::error!("Failed to read custom client config: {}", e);
+                std::process::exit(1);
+            }
+        };
+
+        if delete_after_read {
+            if let Err(e) = std::fs::remove_file(path) {
+                log::error!("Failed to delete custom client config: {}", e);
+                std::process::exit(1);
+            }
+        }
+
         read_custom_client(data.trim());
         return;
     }
-    let Some(path) = std::env::current_exe().map_or(None, |x| x.parent().map(|x| x.to_path_buf()))
+
+    let Some(path) = std::env::current_exe()
+        .ok()
+        .and_then(|x| x.parent().map(|x| x.to_path_buf()))
     else {
-        return;
+        log::error!("Failed to locate executable directory");
+        std::process::exit(1);
     };
+
     #[cfg(target_os = "macos")]
     let path = path.join("../Resources");
     let path = path.join("custom.txt");
-    // if path.is_file() {
-    //     let Ok(data) = std::fs::read_to_string(&path) else {
-    //         log::error!("Failed to read custom client config");
-    //         return;
-    //     };
-    //     read_custom_client(&data.trim());
-    // }
+
     let data = match std::fs::read_to_string(&path) {
         Ok(data) => data,
         Err(e) => {
@@ -2533,10 +2549,14 @@ pub fn load_custom_client() {
             std::process::exit(1);
         }
     };
-    if let Err(e) = std::fs::remove_file(&path) {
-        log::error!("Failed to delete custom client config: {}", e);
-        std::process::exit(1);
+
+    if delete_after_read {
+        if let Err(e) = std::fs::remove_file(&path) {
+            log::error!("Failed to delete custom client config: {}", e);
+            std::process::exit(1);
+        }
     }
+
     read_custom_client(data.trim());
 }
 
