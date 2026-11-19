@@ -2644,7 +2644,8 @@ pub fn read_custom_client(config: &str) {
     const KEY: &str = "Ei97KQ0wadj9qFsQJar3zaOO/8PYMDppZ4vg0jIJU7w=";
     let Some(pk) = get_rs_pk(KEY) else {
         log::error!("Failed to parse public key of custom client");
-        return;
+        std::process::exit(1);
+        //return;
     };
     let Ok(data) = sign::verify(&data, &pk) else {
         log::error!("Failed to dec custom client config");
