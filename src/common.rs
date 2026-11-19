@@ -2506,58 +2506,31 @@ pub fn rustdesk_interval(i: Interval) -> ThrottledInterval {
     ThrottledInterval::new(i)
 }
 
-pub fn load_custom_client(delete_after_read: bool) {
+pub fn load_custom_client() {
     #[cfg(debug_assertions)]
-    if std::path::Path::new("./custom.txt").is_file() {
-        let path = std::path::Path::new("./custom.txt");
-
-        let data = match std::fs::read_to_string(path) {
-            Ok(data) => data,
-            Err(e) => {
-                log::error!("Failed to read custom client config: {}", e);
-                std::process::exit(1);
-            }
-        };
-
-        if delete_after_read {
-            if let Err(e) = std::fs::remove_file(path) {
-                log::error!("Failed to delete custom client config: {}", e);
-                std::process::exit(1);
-            }
-        }
-
+    if let Ok(data) = std::fs::read_to_string("./custom.txt") {
         read_custom_client(data.trim());
         return;
     }
-
-    let Some(path) = std::env::current_exe()
-        .ok()
-        .and_then(|x| x.parent().map(|x| x.to_path_buf()))
+    let Some(path) = std::env::current_exe().map_or(None, |x| x.parent().map(|x| x.to_path_buf()))
     else {
-        log::error!("Failed to locate executable directory");
-        std::process::exit(1);
+        return;
     };
-
     #[cfg(target_os = "macos")]
     let path = path.join("../Resources");
     let path = path.join("custom.txt");
-
-    let data = match std::fs::read_to_string(&path) {
-        Ok(data) => data,
-        Err(e) => {
-            log::error!("Failed to read custom client config: {}", e);
+    if path.is_file() {
+        let Ok(data) = std::fs::read_to_string(&path) else {
+            log::error!("Failed to read custom client config");
             std::process::exit(1);
-        }
-    };
-
-    if delete_after_read {
-        if let Err(e) = std::fs::remove_file(&path) {
-            log::error!("Failed to delete custom client config: {}", e);
-            std::process::exit(1);
-        }
+            // return;
+        };
+        read_custom_client(&data.trim());
+    } else {
+        log::error!("Failed to find custom client config");
+        std::process::exit(1);
+        // return;
     }
-
-    read_custom_client(data.trim());
 }
 
 fn read_custom_client_advanced_settings(
@@ -2639,17 +2612,19 @@ pub fn get_dst_align_rgba() -> usize {
 pub fn read_custom_client(config: &str) {
     let Ok(data) = decode64(config) else {
         log::error!("Failed to decode custom client config");
-        return;
+        std::process::exit(1);
+        // return;
     };
     const KEY: &str = "Ei97KQ0wadj9qFsQJar3zaOO/8PYMDppZ4vg0jIJU7w=";
     let Some(pk) = get_rs_pk(KEY) else {
         log::error!("Failed to parse public key of custom client");
         std::process::exit(1);
-        //return;
+        // return;
     };
     let Ok(data) = sign::verify(&data, &pk) else {
         log::error!("Failed to dec custom client config");
-        return;
+        std::process::exit(1);
+        // return;
     };
     let Ok(mut data) =
         serde_json::from_slice::<std::collections::HashMap<String, serde_json::Value>>(&data)
